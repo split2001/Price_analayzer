@@ -143,7 +143,7 @@ if __name__ == "__main__":
     while True:
         text = input("Введите текст для поиска (или 'exit' для выхода): ")
         if text.lower() == 'exit':
-            print('Программа завершена')
+            print('Программа завершена.')
             pm.export_to_html()
             break
 
