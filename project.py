@@ -124,6 +124,10 @@ class PriceMachine():
 
     def find_text(self, text):
         results = [product for product in self.data if text.lower() in product['Наименование'].lower()]
+        if not results:  # Если список результатов пуст
+            print(f"Товар '{text}' не найден.")
+
+
         sorted_results = sorted(results, key=lambda x: x['Цена за кг'])
 
         for i, product in enumerate(sorted_results, 1):
@@ -139,15 +143,17 @@ if __name__ == "__main__":
     pm.load_prices()
     pm.export_to_html()
 
+    try:
+        while True:
+            text = input("Введите текст для поиска (или 'exit' для выхода): ")
+            if text.lower() == 'exit':
+                print('Программа завершена.')
+                pm.export_to_html()
+                break
 
-    while True:
-        text = input("Введите текст для поиска (или 'exit' для выхода): ")
-        if text.lower() == 'exit':
-            print('Программа завершена.')
-            pm.export_to_html()
-            break
+            pm.find_text(text)
 
-        pm.find_text(text)
-
+    except KeyboardInterrupt:
+        print("\nПрограмма завершена пользователем.")
 
 
